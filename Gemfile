@@ -22,10 +22,13 @@ gem 'pg'
 gem 'jazz_hands' # pry / pp / hirb
 
 group :development, :test do
-  gem 'capybara'
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'capybara'
 end
