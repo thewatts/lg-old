@@ -24,9 +24,13 @@ gem 'jazz_hands' # pry / pp / hirb
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+end
+
+group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'factory_girl_rails'
 end
 
 group :test do
