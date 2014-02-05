@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 feature "lifegroups" do
+
+  before do
+    create(:semester, :name => "Fall 2014")
+  end
+
   scenario "can be created through the admin page" do
     visit admin_dashboard_path
 

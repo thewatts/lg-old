@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :semester do
-    name "MyString"
+    name "Fall 2014"
     start_date "2014-02-04"
     end_date "2014-02-04"
   end
