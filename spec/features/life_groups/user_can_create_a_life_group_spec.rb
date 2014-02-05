@@ -3,6 +3,7 @@ require 'spec_helper'
 feature "lifegroups" do
   scenario "can be created through the admin page" do
     visit admin_dashboard_path
+
     click_on "Create Group"
     title = "New Breed"
     fill_in "Name",        :with => title
