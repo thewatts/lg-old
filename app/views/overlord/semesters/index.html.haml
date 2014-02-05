@@ -1,4 +1,6 @@
 - if @semesters.each do |semester|
   = semester
 - end.empty?
-  %p You currently have no semesters
+  %p You currently have no semesters.
+
+= link_to "Add Semester", new_overlord_semester_path
