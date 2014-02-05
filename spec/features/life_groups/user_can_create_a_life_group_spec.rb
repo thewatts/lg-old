@@ -5,8 +5,8 @@ feature "lifegroups" do
     visit admin_dashboard_path
 
     click_on "Create Group"
-    title = "New Breed"
-    fill_in "Name",        :with => title
+    name = "New Breed"
+    fill_in "Name",        :with => name
     select "Fall 2014",    :from => "Semester"
     fill_in "Description", :with => "A small group of men."
     fill_in "Co-Leaders",  :with => "Nathan Pruzaniec"
