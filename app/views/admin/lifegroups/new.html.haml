@@ -1,4 +1,11 @@
 = form_for @lifegroup, :url => admin_lifegroups_path do |lifegroup|
   = lifegroup.label :name
   = lifegroup.text_field :name
-
+  = lifegroup.label :semester_id, "Semester"
+  = lifegroup.collection_select :semester_id, Semester.all, :id, :name,
+    :prompt => "Select a Semester"
+  = lifegroup.label :description
+  = lifegroup.text_area :description
+  /= lifegroup.label :co_leadership_ids, "Co Leaders"
+  /= lifegroup.collection_select :co_leadership_ids, User.order(:full_name), :id, :name, {}, { :multiple => true }
+  = lifegroup.submit "Create Life Group"

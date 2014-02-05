@@ -11,12 +11,14 @@ feature "lifegroups" do
 
     click_on "Create Group"
     name = "New Breed"
-    fill_in "Name",        :with => name
-    select "Fall 2014",    :from => "Semester"
-    fill_in "Description", :with => "A small group of men."
-    fill_in "Co-Leaders",  :with => "Nathan Pruzaniec"
+    fill_in "Name",            :with => name
+    select "Fall 2014",        :from => "Semester"
+    fill_in "Description",     :with => "A small group of men."
+    # https://gist.github.com/thijsc/1391107 -- for later
+    #select "Nathan Pruzaniec", :from => "Co Leaders"
+    #select "J Parker",         :from => "Co Leaders"
     click_on "Create Life Group"
 
-    expect(page).to have_content "Thanks for submitting #{title} for approval!"
+    expect(page).to have_content "Thanks for submitting #{name} for approval!"
   end
 end
