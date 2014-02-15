@@ -70,6 +70,9 @@ GEM
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     ffi (1.9.3)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     formatador (0.2.4)
     grit (2.5.0)
       diff-lcs (~> 1.1)
@@ -86,6 +89,7 @@ GEM
       rspec (>= 2.14, < 4.0)
     haml (4.0.5)
       tilt
+    hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
     i18n (0.6.9)
@@ -122,6 +126,9 @@ GEM
     multi_json (1.8.4)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    omniauth (1.2.1)
+      hashie (>= 1.2, < 3)
+      rack (~> 1.0)
     pg (0.17.1)
     polyglot (0.3.3)
     posix-spawn (0.3.8)
@@ -230,11 +237,13 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl_rails
+  figaro
   guard-rspec
   haml
   jazz_hands
   jquery-rails
   launchy
+  omniauth
   pg
   rails (= 4.0.2)
   rails_12factor

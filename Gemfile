@@ -16,7 +16,10 @@ gem 'pg'                       # Postgresql Database
 
 gem 'jazz_hands' # pry / pp / hirb
 
+gem 'omniauth'
+
 group :development, :test do
+  gem 'figaro'
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
