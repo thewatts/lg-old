@@ -2,12 +2,14 @@ require 'spec_helper'
 
 feature "lifegroups" do
 
+  let(:user) { create(:user, :login => "thewatts") }
+
   before do
     create(:semester, :name => "Fall 2014")
   end
 
   scenario "can be created through the admin page" do
-    visit admin_dashboard_path
+    visit leader_dashboard_path(:login => user.login)
 
     click_on "Create Group"
     name = "New Breed"

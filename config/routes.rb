@@ -1,13 +1,16 @@
 Lg::Application.routes.draw do
 
   root "home#index"
+  get '/leaders/signup', :to => "leaders#index", :as => :leader_signup
 
-  namespace :admin do
+  resources :users, :only => [:create]
+
+  namespace :leader, :param => :login do
     root "lifegroups#index", :as => :dashboard
-    resources :lifegroups
+    resources :lifegroups, :path => "groups"
   end
 
-  namespace :overlord do
+  namespace :admin do
     root "dashboard#index", :as => :dashboard
     resources :semesters
   end

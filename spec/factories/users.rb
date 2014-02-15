@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    full_name "MyString"
+    full_name "Nathaniel Watts"
+    login "thewatts"
   end
 end

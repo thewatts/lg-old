@@ -1,4 +1,4 @@
-module Overlord
+module Admin
   class SemestersController < ApplicationController
     def index
       @semesters = Semester.all
@@ -12,7 +12,7 @@ module Overlord
       @semester = Semester.new(semester_params)
       if @semester.save
         flash[:success] = "Successfully added semester #{@semester.name}."
-        redirect_to overlord_semesters_path
+        redirect_to admin_semesters_path
       else
         flash[:error] = "Oops, something went wrong."
         render :new
