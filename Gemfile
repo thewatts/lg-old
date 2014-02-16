@@ -17,6 +17,7 @@ gem 'pg'                       # Postgresql Database
 gem 'jazz_hands' # pry / pp / hirb
 
 gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'figaro'

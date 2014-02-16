@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature "org leader" do
   scenario "can create a semester" do
+    pending
     visit admin_dashboard_path
     click_on "Manage Semesters"
     expect(page).to have_content "You currently have no semesters."

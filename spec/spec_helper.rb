@@ -5,6 +5,10 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 
+# OmniAuth "test mode"
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:facebook, {:uid => '12345'})
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
