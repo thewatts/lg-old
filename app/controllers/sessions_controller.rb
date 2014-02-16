@@ -23,6 +23,6 @@ class SessionsController < ApplicationController
   end
 
   def logged_in_message_for(user)
-    "Congrats, #{user.name}!, You're successfully logged in!"
+    "Congrats, #{user.name}, You're successfully logged in!"
   end
 end
