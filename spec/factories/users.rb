@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    full_name "Nathaniel Watts"
+    name "Nathaniel Watts"
     nickname "thewatts"
   end
 end
