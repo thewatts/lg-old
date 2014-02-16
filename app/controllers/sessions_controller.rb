@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
   respond_to :json, :only => [:create]
 
   def create
-    binding.pry
     user = User.from_omniauth(auth_hash) if auth_hash
     if user
       session[:user_id] = user.id
