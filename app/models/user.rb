@@ -2,13 +2,12 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth_hash)
     data = attributes_from(auth_hash)
-    user = User.find_by(:provider => data[:provider], :uid => data[:uid])
-    user ||= User.new(data)
-    user.nickname = data[:nickname] if user.new_nickname?(data[:nickname])
-    user.name = data[:name]         if user.new_name?(data[:name])
-    user.image = data[:image]       if user.new_image?(data[:image])
-    user.save
-    user
+    if user = User.find_by(:provider => data[:provider], :uid => data[:uid])
+      user.update_attributes(data) if user.new_auth_attributes?(data)
+      user
+    else
+      create(data)
+    end
   end
 
   def self.attributes_from(auth_hash)
@@ -22,7 +21,10 @@ class User < ActiveRecord::Base
     }
   end
 
-  def update_auth_info_from(data)
+  def new_auth_attributes?(data)
+    new_nickname?(data[:nickname]) ||
+    new_name?(data[:name])         ||
+    new_image?(data[:image])
   end
 
   def new_nickname?(candidate)
@@ -34,10 +36,6 @@ class User < ActiveRecord::Base
   end
 
   def new_image?(candidate)
-    image != candidate
-  end
-
-  def new_email?(candidate)
     image != candidate
   end
 end

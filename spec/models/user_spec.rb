@@ -2,32 +2,57 @@ require 'spec_helper'
 
 describe User do
   describe "using omniauth" do
-    it "can be created via Facebook" do
-      uid       = '12345'
-      nickname  = 'jbloggs'
-      email     = 'joe@bloggs.com'
-      name      = 'Joe Bloggs'
-      image     = 'http://graph.facebook.com/1234567/picture?type = square'
-      auth_hash = {
-        :provider => 'facebook',
-        :uid      => uid,
-        :info     => {
-          :nickname   => nickname,
-          :email      => email,
-          :name       => name,
-          :first_name => 'Joe',
-          :last_name  => 'Bloggs',
-          :image      => image,
+
+    describe "with Facebook" do
+      let(:uid)      { '12345' }
+      let(:nickname) { 'jbloggs' }
+      let(:email)    { 'joe@bloggs.com' }
+      let(:name)     { 'Joe Bloggs' }
+      let(:image)    { 'http://graph.facebook.com/1234567/picture?type=square' }
+      let(:auth_hash) {
+        {
+          :provider => 'facebook',
+          :uid      => uid,
+          :info     => {
+            :nickname   => nickname,
+            :email      => email,
+            :name       => name,
+            :first_name => 'Joe',
+            :last_name  => 'Bloggs',
+            :image      => image,
+          }
         }
       }
-      expect{
-        @user = User.from_omniauth(auth_hash)
-      }.to change{User.count}.by 1
-      expect(@user.provider).to eq 'facebook'
-      expect(@user.nickname).to eq nickname
-      expect(@user.email).to    eq email
-      expect(@user.name).to     eq name
-      expect(@user.image).to    eq image
+
+      it "can be created" do
+        expect{
+          @user = User.from_omniauth(auth_hash)
+        }.to change{User.count}.by 1
+        expect(@user.provider).to eq 'facebook'
+        expect(@user.nickname).to eq nickname
+        expect(@user.email).to    eq email
+        expect(@user.name).to     eq name
+        expect(@user.image).to    eq image
+      end
+
+      it "can be found" do
+        user = User.from_omniauth(auth_hash)
+
+        expect{
+          @found_user = User.from_omniauth(auth_hash)
+        }.to change{User.count}.by 0
+        expect(@found_user).to eq user
+      end
+
+      it "will update new auth attributes" do
+        user = User.from_omniauth(auth_hash)
+        new_nickname = "my-new-nickname"
+        expect(user.nickname).to eq nickname
+        auth_hash[:info][:nickname] = new_nickname
+        updated_user = User.from_omniauth(auth_hash)
+
+        expect(updated_user.nickname).to eq new_nickname
+      end
     end
   end
 end
