@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :user do
     full_name "Nathaniel Watts"
-    login "thewatts"
+    nickname "thewatts"
   end
 end
