@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<h1><%= "Logged In As: #{current_user.name}" || "NOT LOGGED IN" %></h1>
+
 <% flash.each do |type, message| %>
   <div class="flash #{type}">
     <%= message %>
