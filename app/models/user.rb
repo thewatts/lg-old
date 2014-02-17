@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     }
   end
 
+  def complete?
+    email?
+  end
+
   def new_auth_attributes?(data)
     new_nickname?(data[:nickname]) ||
     new_name?(data[:name])         ||
