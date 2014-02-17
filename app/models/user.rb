@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
       :provider => auth_hash[:provider],
       :nickname => auth_hash[:info][:nickname],
       :name     => auth_hash[:info][:name],
-      :email    => auth_hash[:info][:email],
       :image    => auth_hash[:info][:image],
     }
   end
