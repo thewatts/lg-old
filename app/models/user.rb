@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
     new_image?(data[:image])
   end
 
+  private
+
   def new_nickname?(candidate)
     nickname != candidate
   end

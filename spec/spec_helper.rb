@@ -4,6 +4,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
+require 'simplecov'
+
+SimpleCov.start
 
 # OmniAuth "test mode"
 OmniAuth.config.test_mode = true
