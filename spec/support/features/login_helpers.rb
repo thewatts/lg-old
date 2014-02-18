@@ -27,5 +27,31 @@ module Features
       )
     end
 
+    def signup_user_with_twitter
+      provider = 'twitter<F2>'
+      uid = '12345'
+      nickname = 'jbloggs'
+      name = "Joe Bloggs"
+      image = 'http://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png'
+      OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+        :provider => provider,
+        :uid      => uid,
+        :info     => {
+          :nickname   => nickname,
+          :name       => name,
+          :image      => image
+        }
+      })
+      visit leader_signup_path
+      click_on "Signup with Twitter"
+      return User.new(
+        :provider => provider,
+        :uid => uid,
+        :nickname => nickname,
+        :name => name,
+        :image => image
+      )
+    end
+
   end
 end
