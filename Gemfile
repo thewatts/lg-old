@@ -18,6 +18,7 @@ gem 'jazz_hands' # pry / pp / hirb
 
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'figaro'
