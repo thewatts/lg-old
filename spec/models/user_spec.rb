@@ -56,7 +56,7 @@ describe User do
       let(:uid)      { '12345' }
       let(:nickname) { 'jbloggs' }
       let(:name)     { 'Joe Bloggs' }
-      let(:image)    { 'http://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png' }
+      let(:image)    { 'http://avatar.png' }
       let(:auth_hash) {
         {
           :provider => 'twitter',
