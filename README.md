@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/thewatts/lg.png)](https://codeclimate.com/github/thewatts/lg)
+
 == README
 
 This README would normally document whatever steps are necessary to get the
