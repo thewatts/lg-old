@@ -30,7 +30,6 @@ describe User do
         }.to change{User.count}.by 1
         expect(@user.provider).to eq 'facebook'
         expect(@user.nickname).to eq nickname
-        expect(@user.email).to    eq email
         expect(@user.name).to     eq name
         expect(@user.image).to    eq image
       end
