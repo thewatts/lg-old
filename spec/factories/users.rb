@@ -4,5 +4,7 @@ FactoryGirl.define do
   factory :user do
     name "Nathaniel Watts"
     nickname "thewatts"
+    email "reg@nathanielwatts.com"
+    provider "facebook"
   end
 end
