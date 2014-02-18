@@ -28,7 +28,7 @@ module Features
     end
 
     def signup_user_with_twitter
-      provider = 'twitter<F2>'
+      provider = 'twitter'
       uid = '12345'
       nickname = 'jbloggs'
       name = "Joe Bloggs"
