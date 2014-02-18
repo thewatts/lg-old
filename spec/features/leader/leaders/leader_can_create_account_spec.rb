@@ -23,9 +23,11 @@ feature "leader" do
     expect( page.current_url ).to eq leader_finish_signup_url(
       :nickname => user.nickname)
 
-    fill_in "Email", :with => "joe@bloggs.com"
+    fill_in "Email", :with => "reg@nathanielwatts.com"
     click_on "Finish Signup"
     expect( page.body ).to have_content "You're officially signed up, #{name}!"
     expect( page.current_url ).to eq leader_dashboard_url(:nickname => nickname)
+    expect(ActionMailer::Base.deliveries.last.to).to eq(
+      ['reg@nathanielwatts.com'])
   end
 end

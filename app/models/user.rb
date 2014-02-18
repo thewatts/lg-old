@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth_hash)
     data = attributes_from(auth_hash)
+
     if user = User.find_by(:provider => data[:provider], :uid => data[:uid])
       user.update_attributes(data) if user.new_auth_attributes?(data)
       user
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
       :name     => auth_hash[:info][:name],
       :image    => auth_hash[:info][:image],
     }
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
   end
 
   def complete?

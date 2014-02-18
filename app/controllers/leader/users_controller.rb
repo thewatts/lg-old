@@ -7,17 +7,27 @@ module Leader
 
     def update_signup_attributes
       if current_user.update(user_params)
-        flash[:success] = "You're officially signed up, #{current_user.name}!"
-        redirect_to leader_dashboard_path(:nickname => current_user.nickname)
+        finalize_signup
       else
-        flash[:error] = "OOPS! Looks like something went wrong."
-        render :finish_signup
+        error_finishing_signup
       end
     end
 
     private
+
     def user_params
       params.require(:user).permit(:email)
+    end
+
+    def finalize_signup
+      current_user.send_welcome_email
+      flash[:success] = "You're officially signed up, #{current_user.name}!"
+      redirect_to leader_dashboard_path(:nickname => current_user.nickname)
+    end
+
+    def error_finishing_signup
+      flash[:error] = "OOPS! Looks like something went wrong."
+      render :finish_signup
     end
 
   end

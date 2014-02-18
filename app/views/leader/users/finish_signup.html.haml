@@ -1,4 +1,4 @@
-= form_for @user, :url => :leader_finish_signup do |user|
+= form_for current_user, :url => :leader_finish_signup do |user|
   = user.label :email
   = user.text_field :email
   = user.submit "Finish Signup"
