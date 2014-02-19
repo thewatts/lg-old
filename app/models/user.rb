@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
 
+  validates :email, :presence => true, :on => :update
+  validates :email, :uniqueness => true
+  validates :name,  :presence => true
+
   def self.from_omniauth(auth_hash)
     data = attributes_from(auth_hash)
 

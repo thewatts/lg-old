@@ -1,6 +1,43 @@
 require 'spec_helper'
 
 describe User do
+
+  describe "validations" do
+    it "should be valid with valid attributes" do
+      expect(build(:user)).to be_valid
+    end
+
+    it "should have a name" do
+      blank_name = build(:user, :name => "")
+      expect(blank_name).not_to be_valid
+      expect(blank_name.errors.messages[:name]).not_to be_nil
+    end
+
+    it "should have an email after initial creation" do
+      blank_email = create(:user, :email => "")
+      expect(blank_email).not_to be_valid
+      expect(blank_email.errors.messages[:email]).not_to be_nil
+    end
+
+    it "should have a unique email" do
+      create(:user, :email => "unique@example.com")
+      duplicate = build(:user, :email => "unique@example.com")
+
+      expect(duplicate).not_to be_valid
+      expect(duplicate.errors.messages[:email]).not_to be_nil
+    end
+
+    it "should have a unique nickname" do
+      create(:user, :nickname => "nickname")
+      duplicate = build(:user, :nickname => "nickname")
+
+      expect(duplicate).not_to be_valid
+      expect(duplicate.errors.messages[:email]).to be_nil
+      expect(duplicate.errors.messages[:nickname]).not_to be_nil
+    end
+
+  end
+
   describe "using omniauth" do
 
     describe "with Facebook" do
@@ -8,7 +45,7 @@ describe User do
       let(:nickname) { 'jbloggs' }
       let(:email)    { 'joe@bloggs.com' }
       let(:name)     { 'Joe Bloggs' }
-      let(:image)    { 'http://graph.facebook.com/1234567/picture?type=square' }
+      let(:image)    { 'picture.png' }
       let(:auth_hash) {
         {
           :provider => 'facebook',

@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :user do
     name "Nathaniel Watts"
-    nickname "thewatts"
-    email "reg@nathanielwatts.com"
+    nickname "nickname"
+    email "contact@example.com"
     provider "facebook"
   end
 end
