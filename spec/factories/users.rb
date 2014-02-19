@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
+    uid "12345"
     name "Nathaniel Watts"
     nickname "nickname"
     email "contact@example.com"

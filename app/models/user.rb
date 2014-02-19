@@ -39,6 +39,14 @@ class User < ActiveRecord::Base
     new_image?(data[:image])
   end
 
+  def logged_in_message
+    "Congrats, #{name}, You've successfully logged in!"
+  end
+
+  def signed_up_message
+    "Thanks for signing up, #{name}!"
+  end
+
   private
 
   def new_nickname?(candidate)
