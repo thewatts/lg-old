@@ -10,7 +10,7 @@ feature "leader" do
         :name => "Nathaniel Watts"
       }
     })
-    user = create(:user)
+    user = create(:user, :nickname => "thewatts")
     visit leader_signup_path
     click_link "Signup with Facebook"
     expect( page.body ).to have_content "Congrats, #{user.name},"

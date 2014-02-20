@@ -7,7 +7,7 @@ Lg::Application.routes.draw do
 
   resources :users, :only => [:create]
 
-  namespace :leader, :path => ':nickname' do
+  namespace :leader, :path => ":nickname", :constraints => { :nickname => /[\w+(\.|\-)?]+/ }  do
     get '/finish',   :to => 'users#finish_signup', :as => :finish_signup
     patch '/finish', :to => 'users#update_signup_attributes'
     root 'lifegroups#index', :as => :dashboard
