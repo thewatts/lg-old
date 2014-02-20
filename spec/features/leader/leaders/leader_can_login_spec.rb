@@ -6,7 +6,7 @@ feature "leader" do
     OmniAuth.config.add_mock(:facebook, {
       :uid => '12345',
       :info => {
-        :nickname => 'thewatts',
+        :nickname => 'nickname',
         :name => "Nathaniel Watts"
       }
     })

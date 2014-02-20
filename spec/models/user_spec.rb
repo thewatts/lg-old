@@ -27,12 +27,19 @@ describe User do
       expect(duplicate.errors.messages[:email]).not_to be_nil
     end
 
+    it "email should be an email" do
+      invalid_email = build(:user, :email => "asdf1234")
+
+      expect(invalid_email).not_to be_valid
+      expect(duplicate.errors.messages[:email]).not_to be_nil
+    end
+
     it "should have a unique nickname" do
+      pending
       create(:user, :nickname => "nickname")
       duplicate = build(:user, :nickname => "nickname")
 
       expect(duplicate).not_to be_valid
-      expect(duplicate.errors.messages[:email]).to be_nil
       expect(duplicate.errors.messages[:nickname]).not_to be_nil
     end
 
