@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   def update(params)
     if new_display_name?(params[:display_name])
-      params.merge!(:nickname => generate_nickname_from(params[:display_name]))
+      params.merge!(:nickname => nickname_from(params[:display_name]))
     end
     super
   end
@@ -36,9 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def new_auth_attributes?(data)
-    new_nickname?(data[:nickname]) ||
-    new_name?(data[:name])         ||
-    new_image?(data[:image])
+    new_name?(data[:name]) || new_image?(data[:image])
   end
 
   def logged_in_message
@@ -55,10 +53,6 @@ class User < ActiveRecord::Base
 
 private
 
-  def new_nickname?(candidate)
-    nickname != candidate
-  end
-
   def new_name?(candidate)
     name != candidate
   end
@@ -71,7 +65,7 @@ private
     display_name != candidate
   end
 
-  def generate_nickname_from(display_name)
-    display_name.parameterize.gsub('-', '.')
+  def nickname_from(display_name)
+    display_name.to_s.parameterize.gsub('-', '.')
   end
 end
