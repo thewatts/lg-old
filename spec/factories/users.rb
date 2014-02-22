@@ -7,5 +7,6 @@ FactoryGirl.define do
     nickname "thewatts"
     email "reg@nathanielwatts.com"
     provider "facebook"
+    display_name "Nathaniel Watts"
   end
 end

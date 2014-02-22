@@ -16,12 +16,12 @@ module Leader
     private
 
     def user_params
-      params.require(:user).permit(:email)
+      params.require(:user).permit(:display_name, :email)
     end
 
     def finalize_signup
       current_user.send_welcome_email
-      flash[:success] = "You're officially signed up, #{current_user.name}!"
+      flash[:success] = current_user.finalized_signup_message
       redirect_to leader_dashboard_path(:nickname => current_user.nickname)
     end
 
