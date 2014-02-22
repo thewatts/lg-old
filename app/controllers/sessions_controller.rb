@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
       flash[:success] = user.logged_in_message
       redirect_to leader_dashboard_path(:nickname => user.nickname)
     else
-      flash[:success] = user.signed_up_message
-      redirect_to leader_finish_signup_path(:nickname => user.nickname)
+      flash[:success] = user.initial_signup_message
+      redirect_to leader_finish_signup_path
     end
   end
 

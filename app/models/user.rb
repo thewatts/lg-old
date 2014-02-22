@@ -19,10 +19,16 @@ class User < ActiveRecord::Base
     {
       :uid      => auth_hash[:uid],
       :provider => auth_hash[:provider],
-      :nickname => auth_hash[:info][:nickname],
       :name     => auth_hash[:info][:name],
       :image    => auth_hash[:info][:image],
     }
+  end
+
+  def update(params)
+    if new_display_name?(params[:display_name])
+      params.merge!(:nickname => nickname_from(params[:display_name]))
+    end
+    super
   end
 
   def send_welcome_email
@@ -30,28 +36,26 @@ class User < ActiveRecord::Base
   end
 
   def complete?
-    email?
+    email? && display_name?
   end
 
   def new_auth_attributes?(data)
-    new_nickname?(data[:nickname]) ||
-    new_name?(data[:name])         ||
-    new_image?(data[:image])
+    new_name?(data[:name]) || new_image?(data[:image])
   end
 
   def logged_in_message
-    "Congrats, #{name}, You've successfully logged in!"
+    "Congrats, #{display_name}, You've successfully logged in!"
   end
 
-  def signed_up_message
+  def finalized_signup_message
+    "You're officially signed up, #{display_name}!"
+  end
+
+  def initial_signup_message
     "Thanks for signing up, #{name}!"
   end
 
-  private
-
-  def new_nickname?(candidate)
-    nickname != candidate
-  end
+private
 
   def new_name?(candidate)
     name != candidate
@@ -59,5 +63,13 @@ class User < ActiveRecord::Base
 
   def new_image?(candidate)
     image != candidate
+  end
+
+  def new_display_name?(candidate)
+    display_name != candidate
+  end
+
+  def nickname_from(display_name)
+    display_name.to_s.parameterize.gsub('-', '.')
   end
 end

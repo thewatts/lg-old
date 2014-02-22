@@ -1,4 +1,8 @@
+%h3 Please finish your signup process
+
 = form_for current_user, :url => :leader_finish_signup do |user|
+  = user.label :display_name, "Full Name"
+  = user.text_field :display_name
   = user.label :email
   = user.text_field :email
   = user.submit "Finish Signup"
