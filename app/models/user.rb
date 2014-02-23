@@ -1,8 +1,13 @@
 class User < ActiveRecord::Base
 
-  validates :email, :presence => true, :on => :update
+  validates :display_name, :presence => true, :on => :update
+  validates :email, :presence => true, :format => {
+    :with => /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,}\z/
+  }, :on => :update
   validates :email, :uniqueness => true
   validates :name,  :presence => true
+  validates :nickname, :uniqueness => true
+
 
   def self.from_omniauth(auth_hash)
     data = attributes_from(auth_hash)
@@ -22,6 +27,12 @@ class User < ActiveRecord::Base
       :name     => auth_hash[:info][:name],
       :image    => auth_hash[:info][:image],
     }
+  end
+
+  def save
+    self.email = email.to_s.downcase
+    self.nickname = nickname_from(display_name) if nickname.nil?
+    super
   end
 
   def update(params)
@@ -70,6 +81,18 @@ private
   end
 
   def nickname_from(display_name)
-    display_name.to_s.parameterize.gsub('-', '.')
+    return "" if display_name.nil?
+
+    candidate = to_nickname(display_name)
+    count = 2
+    while User.find_by(:nickname => candidate)
+      candidate = "#{to_nickname(display_name)}-#{count}"
+      count += 1
+    end
+    candidate
+  end
+
+  def to_nickname(name)
+    name.to_s.parameterize.gsub('-', '.')
   end
 end

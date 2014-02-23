@@ -4,8 +4,8 @@ FactoryGirl.define do
   factory :user do
     uid "12345"
     name "Nathaniel Watts"
-    nickname "nickname"
-    email "contact@example.com"
+    sequence(:nickname) { |n| "nickname-#{n}" }
+    sequence(:email) { |n| "email#{n}@factory.com" }
     provider "facebook"
     display_name "Nathaniel Watts"
   end
