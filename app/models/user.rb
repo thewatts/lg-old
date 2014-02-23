@@ -1,5 +1,14 @@
 class User < ActiveRecord::Base
 
+  validates :display_name, :presence => true, :on => :update
+  validates :email, :presence => true, :format => {
+    :with => /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,}\z/
+  }, :on => :update
+  validates :email, :uniqueness => true
+  validates :name,  :presence => true
+  validates :nickname, :uniqueness => true
+
+
   def self.from_omniauth(auth_hash)
     data = attributes_from(auth_hash)
 
@@ -15,10 +24,22 @@ class User < ActiveRecord::Base
     {
       :uid      => auth_hash[:uid],
       :provider => auth_hash[:provider],
-      :nickname => auth_hash[:info][:nickname],
       :name     => auth_hash[:info][:name],
       :image    => auth_hash[:info][:image],
     }
+  end
+
+  def save
+    self.email = email.to_s.downcase
+    self.nickname = nickname_from(display_name) if nickname.nil?
+    super
+  end
+
+  def update(params)
+    if new_display_name?(params[:display_name])
+      params.merge!(:nickname => nickname_from(params[:display_name]))
+    end
+    super
   end
 
   def send_welcome_email
@@ -26,20 +47,26 @@ class User < ActiveRecord::Base
   end
 
   def complete?
-    email?
+    email? && display_name?
   end
 
   def new_auth_attributes?(data)
-    new_nickname?(data[:nickname]) ||
-    new_name?(data[:name])         ||
-    new_image?(data[:image])
+    new_name?(data[:name]) || new_image?(data[:image])
   end
 
-  private
-
-  def new_nickname?(candidate)
-    nickname != candidate
+  def logged_in_message
+    "Congrats, #{display_name}, You've successfully logged in!"
   end
+
+  def finalized_signup_message
+    "You're officially signed up, #{display_name}!"
+  end
+
+  def initial_signup_message
+    "Thanks for signing up, #{name}!"
+  end
+
+private
 
   def new_name?(candidate)
     name != candidate
@@ -47,5 +74,28 @@ class User < ActiveRecord::Base
 
   def new_image?(candidate)
     image != candidate
+  end
+
+  def new_display_name?(candidate)
+    display_name != candidate
+  end
+
+  def nickname_from(display_name)
+    return "" if display_name.nil?
+    generate_valid_nickname_from(display_name)
+  end
+
+  def generate_valid_nickname_from(display_name)
+    candidate = to_nickname(display_name)
+    count = 2
+    while User.find_by(:nickname => candidate)
+      candidate = "#{to_nickname(display_name)}-#{count}"
+      count += 1
+    end
+    candidate
+  end
+
+  def to_nickname(name)
+    name.to_s.parameterize.gsub('-', '.')
   end
 end

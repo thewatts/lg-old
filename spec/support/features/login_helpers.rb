@@ -32,7 +32,7 @@ module Features
       uid = '12345'
       nickname = 'jbloggs'
       name = "Joe Bloggs"
-      image = 'http://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png'
+      image = 'picture.png'
       OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
         :provider => provider,
         :uid      => uid,
