@@ -82,7 +82,10 @@ private
 
   def nickname_from(display_name)
     return "" if display_name.nil?
+    generate_valid_nickname_from(display_name)
+  end
 
+  def generate_valid_nickname_from(display_name)
     candidate = to_nickname(display_name)
     count = 2
     while User.find_by(:nickname => candidate)
