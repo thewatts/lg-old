@@ -11,8 +11,11 @@ module Leader
     def create
       @lifegroup = Lifegroup.new(lifegroup_params)
       if @lifegroup.save
-        flash[:success] = "Thanks for submitting #{@lifegroup.name} for approval!"
-        redirect_to leader_lifegroups_path
+        flash[:success] = "#{@lifegroup.name}'s basic information saved."
+        redirect_to leader_group_steps_edit_specifics_path(
+          :nickname => current_user.nickname,
+          :group_number => @lifegroup.number
+        )
       else
         flash[:error] = "Oops! Something went wrong."
         render :new

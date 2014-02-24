@@ -1,5 +1,4 @@
 = form_for @lifegroup, :url => leader_lifegroups_path do |lifegroup|
-  = lifegroup.error_messages
   = lifegroup.label :name
   = lifegroup.text_field :name
   = lifegroup.label :semester_id, "Semester"
@@ -10,3 +9,4 @@
   -# = lifegroup.label :co_leadership_ids, "Co Leaders"
   -# = lifegroup.collection_select :co_leadership_ids, User.order(:full_name), :id, :name, {}, { :multiple => true }
   = lifegroup.submit "Save and Continue"
+

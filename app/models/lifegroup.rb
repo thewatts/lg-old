@@ -6,20 +6,18 @@ class Lifegroup < ActiveRecord::Base
 
   validates :number, :presence => true, :on => :update
 
+  after_save :generate_number, :unless => :number?
+
   def steps
     GroupSteps.all
   end
 
-  def save
-    super
-    generate_number
-  end
-
   def generate_number
-    update(:number => "0000#{id}") if number.nil?
+    self.number = "0000#{id}" if number.nil?
+    save
   end
 
-  private
+private
 
   def generate_group_number
     "0000#{id}"

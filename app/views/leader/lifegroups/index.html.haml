@@ -1,2 +1,3 @@
 %h2 You don't have any groups yet.
-= link_to "Create Group", new_leader_lifegroup_path
+= link_to "Create Group",
+  new_leader_lifegroup_path(:nickname => current_user.nickname)

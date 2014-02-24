@@ -6,12 +6,13 @@ feature "lifegroups" do
 
   before do
     create(:semester, :name => "Fall 2014")
+    current_user_is(user)
   end
 
   scenario "can be created with basic info" do
     visit leader_dashboard_path(:nickname => user.nickname)
     click_on "Create Group"
-    expect(page.current_url).to eq leader_groups_edit_basic_info_url(
+    expect(page.current_url).to eq new_leader_lifegroup_url(
       :nickname => user.nickname)
 
     name = "New Breed"
@@ -22,8 +23,12 @@ feature "lifegroups" do
     # select "Nathan Pruzaniec", :from => "Co Leaders"
     # select "J Parker",         :from => "Co Leaders"
     click_on "Save and Continue"
+    group = Lifegroup.last
 
-    expect(page).to have_content "Specific Info for #{name}"
-    expect(page.current_url).to eq group_creation_specific_info_url
+    expect(page).to have_content "#{name}'s basic information saved."
+    expect(page.current_url).to eq leader_group_steps_edit_specifics_url(
+      :nickname => user.nickname,
+      :group_number => group.number
+    )
   end
 end
