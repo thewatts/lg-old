@@ -1,6 +1,10 @@
 module Features
   module LoginHelpers
 
+    def current_user_is(user)
+      page.set_rack_session(:user_id => user.id)
+    end
+
     def signup_user_with_facebook
       provider = 'facebook'
       uid = '12345'
