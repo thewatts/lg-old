@@ -4,8 +4,25 @@ class Lifegroup < ActiveRecord::Base
   belongs_to :semester
   serialize  :completed_steps, Array
 
+  validates :number, :presence => true, :on => :update
+
   def steps
     GroupSteps.all
+  end
+
+  def save
+    super
+    generate_number
+  end
+
+  def generate_number
+    update(:number => "0000#{id}") if number.nil?
+  end
+
+  private
+
+  def generate_group_number
+    "0000#{id}"
   end
 end
 

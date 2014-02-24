@@ -2,6 +2,22 @@ require 'spec_helper'
 
 describe Lifegroup do
 
+  describe "validations" do
+
+    it "has a group_number" do
+      group = build(:lifegroup, :number => nil)
+      group.save
+      expect(group.number).not_to be_nil
+    end
+
+    it "generates a group number" do
+      group = build(:lifegroup, :number => nil)
+      group.save
+      expect(group.number).to eq "0000#{group.id}"
+    end
+
+  end
+
   describe "group steps" do
     it "exist" do
       group = build(:lifegroup)
