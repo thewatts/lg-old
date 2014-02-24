@@ -1,4 +1,12 @@
 class Lifegroup < ActiveRecord::Base
+  include GroupSteps
+
+  belongs_to :semester
+  serialize  :completed_steps, Array
+
+  def steps
+    GroupSteps.all
+  end
 end
 
   # belongs_to :semester
