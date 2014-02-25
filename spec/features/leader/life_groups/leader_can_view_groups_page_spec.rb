@@ -13,4 +13,13 @@ feature "User" do
     expect(page).to have_content "You don't have any groups yet."
     expect(page).to have_link("Create Group")
   end
+
+  scenario "can view their groups page with pending group" do
+    group = create(:lifegroup)
+    user.lifegroups << group
+    visit leader_dashboard_path(:nickname => user.nickname)
+
+    expect(page).to have_content group.name
+    expect(page).to have_link("Create Group")
+  end
 end
