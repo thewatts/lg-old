@@ -17,4 +17,19 @@ feature 'Leader' do
       expect(page).to have_content "Please finish"
     end
   end
+
+  scenario 'is sent to dashboard from signup if already logged in' do
+    user = create(:user, :nickname => "thewatts")
+    current_user_is(user)
+    visit leader_signup_path
+    expect(page.current_url).to eq leader_dashboard_url(
+      :nickname => user.nickname)
+  end
+
+  scenario 'is sent to finish signup from signup if current and incomplete' do
+    user = create(:user, :nickname => "thewatts", :email => nil)
+    current_user_is(user)
+    visit leader_signup_path
+    expect(page.current_url).to eq leader_finish_signup_url
+  end
 end

@@ -1,5 +1,5 @@
 class LeadersController < ApplicationController
   def index
-    @user = User.new
+    send_to_dashboard(current_user) if current_user
   end
 end
