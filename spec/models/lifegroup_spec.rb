@@ -31,21 +31,6 @@ describe Lifegroup do
       group.save
       expect(group.number).not_to be_nil
     end
-
-    it "must have a name" do
-      group = build(:lifegroup, :name => nil)
-      expect(group).to be_invalid
-    end
-
-    it "must have a description" do
-      group = build(:lifegroup, :description => nil)
-      expect(group).to be_invalid
-    end
-
-    it "must have a semester" do
-      group = build(:lifegroup, :semester => nil)
-      expect(group).to be_invalid
-    end
   end
 
   describe "group steps" do
