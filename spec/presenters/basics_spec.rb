@@ -17,10 +17,10 @@ describe Basics do
   end
 
   it "needs a semester" do
-    group = build(:lifegroup, :semester => nil)
+    group = build(:lifegroup, :semester_id => nil)
     basics = Basics.new(group)
     expect(basics).to be_invalid
-    expect(basics.errors[:semester]).not_to be_nil
+    expect(basics.errors[:semester_id]).not_to be_nil
   end
 
   it "updates attributes" do
@@ -36,11 +36,13 @@ describe Basics do
     group = build(:lifegroup, :name => nil, :description => nil,
                   :semester => nil)
     basics = Basics.new(group)
+    semester = create(:semester)
     expect(basics).to be_invalid
     basics.update(:name => "valid", :description => "valid description",
-                  :semester => build(:semester))
+                  :semester_id => semester.id)
     expect(basics).to be_valid
     expect(group.completed_steps).to include :basics
+    expect(group.semester).to eq semester
   end
 
   it "remains invalid if not correctly updated" do

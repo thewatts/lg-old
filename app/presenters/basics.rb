@@ -6,9 +6,9 @@ class Basics
 
   validates :name,        :presence => true
   validates :description, :presence => true
-  validates :semester,    :presence => true
+  validates :semester_id, :presence => true
 
-  def_delegators :group, :name, :description, :semester
+  def_delegators :group, :name, :description, :semester_id
 
   attr_reader :group
 

@@ -6,7 +6,8 @@ module Leader
     end
 
     def new
-      @lifegroup = Lifegroup.new
+      group = current_user.lifegroups.create
+      @basics = Basics.new(group)
     end
 
     def create

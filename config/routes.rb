@@ -15,7 +15,8 @@ Lg::Application.routes.draw do
     root 'lifegroups#index', :as => :dashboard
     resources :lifegroups, :path => 'groups', :only => [:index, :new, :create]
     namespace :group_steps, :path => 'groups' do
-      get '/:group_number/basics', :to => "basics#edit", :as => :edit_basics
+      get '/:group_number/basics', :to => "basics#edit",   :as => :edit_basics
+      put '/:group_number/basics', :to => "basics#update", :as => :basics
       get '/:group_number/specifics', :to => "specifics#edit", :as => :edit_specifics
     end
   end
