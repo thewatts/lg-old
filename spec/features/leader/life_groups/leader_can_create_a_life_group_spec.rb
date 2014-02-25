@@ -6,6 +6,8 @@ feature "lifegroups" do
 
   before do
     create(:semester, :name => "Fall 2014")
+    @npruzaniec = create(:user, :display_name => "Nathan Pruzaniec")
+    @jparker    = create(:user, :display_name => "J Parker")
     current_user_is(user)
   end
 
@@ -20,8 +22,8 @@ feature "lifegroups" do
     select "Fall 2014",        :from => "Semester"
     fill_in "Description",     :with => "A small group of men."
     # https://gist.github.com/thijsc/1391107 -- for later
-    # select "Nathan Pruzaniec", :from => "Co Leaders"
-    # select "J Parker",         :from => "Co Leaders"
+    select "Nathan Pruzaniec", :from => "Co Leaders"
+    select "J Parker",         :from => "Co Leaders"
     click_on "Save and Continue"
     group = Lifegroup.last
 
@@ -30,6 +32,8 @@ feature "lifegroups" do
       :nickname => user.nickname,
       :group_number => group.number
     )
+
+    expect(group.leaders).to include user, @npruzaniec, @jparker
   end
 
   scenario "creation can be continued with specific info"

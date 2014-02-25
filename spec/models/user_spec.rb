@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe User do
 
+  it "can create groups" do
+    user  = create(:user)
+    group = user.lifegroups.create(
+      :name        => "New Group",
+      :description => "New Group Description",
+      :semester    => build(:semester)
+    )
+    expect(user.lifegroups).to include group
+  end
+
   describe "validations" do
     it "is valid with valid attributes" do
       expect(build(:user)).to be_valid

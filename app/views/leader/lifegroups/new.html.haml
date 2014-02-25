@@ -8,6 +8,7 @@
     :prompt => "Select a Semester"
   = lifegroup.label :description
   = lifegroup.text_area :description
-  -# = lifegroup.label :co_leadership_ids, "Co Leaders"
-  -# = lifegroup.collection_select :co_leadership_ids, User.order(:full_name), :id, :name, {}, { :multiple => true }
+  = lifegroup.label :leader_ids, "Co Leaders"
+  = lifegroup.collection_select :leader_ids, User.order(:display_name), :id, 
+    :display_name, {}, { :multiple => true }
   = lifegroup.submit "Save and Continue"

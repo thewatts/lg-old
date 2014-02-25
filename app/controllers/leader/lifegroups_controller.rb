@@ -9,8 +9,8 @@ module Leader
     end
 
     def create
-      @lifegroup = Lifegroup.new(lifegroup_params)
-      if @lifegroup.save
+      @lifegroup = current_user.lifegroups.create(lifegroup_params)
+      if @lifegroup.valid?
         flash[:success] = "#{@lifegroup.name}'s basic information saved."
         redirect_to leader_group_steps_edit_specifics_path(
           :nickname => current_user.nickname,
@@ -22,12 +22,13 @@ module Leader
       end
     end
 
-    private
+  private
     def lifegroup_params
       params.require(:lifegroup).permit(
+        :description,
         :name,
         :semester_id,
-        :description
+        :leader_ids => [], # explicity tell strong params this is an array
       )
     end
   end
