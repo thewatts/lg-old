@@ -2,6 +2,8 @@ class Lifegroup < ActiveRecord::Base
   include GroupSteps
 
   belongs_to :semester
+  has_many :leaders, :through => :group_leaders, :source => :user
+  has_many :group_leaders
   serialize  :completed_steps, Array
 
   validates :number, :presence => true, :on => :update

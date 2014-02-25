@@ -2,20 +2,34 @@ require 'spec_helper'
 
 describe Lifegroup do
 
-  describe "validations" do
+  it "generates a group number" do
+    group = build(:lifegroup, :number => nil)
+    group.save
+    expect(group.number).to eq "0000#{group.id}"
+  end
 
-    it "has a group_number" do
+  it "has leaders" do
+    leader = create(:user)
+    group  = build(:lifegroup)
+    group.leaders << leader
+    expect(group.leaders).to include leader
+  end
+
+  it "leaders include the creator" do
+    leader = create(:user)
+    group = leader.lifegroups.create(
+      :name        => "My cool group",
+      :description => "This is my group"
+    )
+    expect(group.leaders).to include leader
+  end
+
+  describe "validations" do
+    it "must have a group_number" do
       group = build(:lifegroup, :number => nil)
       group.save
       expect(group.number).not_to be_nil
     end
-
-    it "generates a group number" do
-      group = build(:lifegroup, :number => nil)
-      group.save
-      expect(group.number).to eq "0000#{group.id}"
-    end
-
   end
 
   describe "group steps" do
