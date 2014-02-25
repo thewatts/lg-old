@@ -5,6 +5,6 @@ FactoryGirl.define do
     name "My Life Group"
     description "My Description"
     number "12345"
-    semester_id 1
+    association :semester, :factory => :semester
   end
 end

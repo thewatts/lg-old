@@ -17,9 +17,10 @@ describe Lifegroup do
 
   it "leaders include the creator" do
     leader = create(:user)
-    group = leader.lifegroups.create(
+    group = leader.lifegroups.create!(
       :name        => "My cool group",
-      :description => "This is my group"
+      :description => "This is my group",
+      :semester    => build(:semester)
     )
     expect(group.leaders).to include leader
   end

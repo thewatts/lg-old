@@ -31,4 +31,9 @@ feature "lifegroups" do
       :group_number => group.number
     )
   end
+
+  scenario "creation can be continued with specific info"
+  scenario "creation can be continued with contact info"
+  scenario "can be reviewd before submission"
+  scenario "can be submitted for approval"
 end

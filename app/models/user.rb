@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :group_leaders
   has_many :lifegroups, :through => :group_leaders
+  has_many :group_leaders
 
   validates :display_name, :presence => true, :on => :update
   validates :email, :presence => true, :format => {
@@ -32,10 +32,10 @@ class User < ActiveRecord::Base
     }
   end
 
-  def save
-    self.email = email.to_s.downcase
+  def save(options = {})
+    self.email    = email.to_s.downcase unless email.nil?
     self.nickname = nickname_from(display_name) if nickname.nil?
-    super
+    super(options)
   end
 
   def update(params)
