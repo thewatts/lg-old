@@ -14,8 +14,6 @@ gem 'sass-rails', '~> 4.0.0'   # Use SCSS for stylesheets
 gem 'haml'                     # HAML Markup Language for views
 gem 'pg'                       # Postgresql Database
 
-gem 'dynamic_form'
-
 gem 'jazz_hands' # pry / pp / hirb
 
 gem 'omniauth'

@@ -6,7 +6,10 @@ class Lifegroup < ActiveRecord::Base
   has_many :group_leaders
   serialize  :completed_steps, Array
 
-  validates :number, :presence => true, :on => :update
+  validates :description, :presence => true
+  validates :name,        :presence => true
+  validates :number,      :presence => true, :on => :update
+  validates :semester,    :presence => true
 
   after_save :generate_number, :unless => :number?
 

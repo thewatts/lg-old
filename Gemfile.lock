@@ -63,7 +63,6 @@ GEM
     diff-lcs (1.2.5)
     diffy (3.0.1)
     docile (1.1.2)
-    dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -272,7 +271,6 @@ DEPENDENCIES
   binding_of_caller
   capybara
   coffee-rails (~> 4.0.0)
-  dynamic_form
   factory_girl_rails
   figaro
   guard-rspec

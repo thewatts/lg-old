@@ -2,5 +2,9 @@
 
 FactoryGirl.define do
   factory :lifegroup do
+    name "My Life Group"
+    description "My Description"
+    number "12345"
+    semester_id 1
   end
 end

@@ -1,5 +1,6 @@
 = form_for @lifegroup, :url => leader_lifegroups_path do |lifegroup|
-  = lifegroup.error_messages
+  - @lifegroup.errors.full_messages.each do |message|
+    = message
   = lifegroup.label :name
   = lifegroup.text_field :name
   = lifegroup.label :semester_id, "Semester"
