@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def send_to_dashboard(user)
     if user.complete?
-      flash[:success] = user.logged_in_message
+      flash[:success] = t('user.logged_in') % { :name => user.display_name }
       redirect_to leader_dashboard_path(:nickname => user.nickname)
     else
       flash[:success] = user.initial_signup_message
