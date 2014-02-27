@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def current_group
+    current_user.lifegroups.find_by(:number => params[:group_number])
+  end
+
   def send_to_dashboard(user)
     if user.complete?
       flash[:success] = t('user.logged_in') % { :name => user.display_name }

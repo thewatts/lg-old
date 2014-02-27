@@ -1,12 +1,15 @@
-= form_for @lifegroup, :url => leader_lifegroups_path do |lifegroup|
-  = lifegroup.label :name
-  = lifegroup.text_field :name
-  = lifegroup.label :semester_id, "Semester"
-  = lifegroup.collection_select :semester_id, Semester.all, :id, :name,
+= form_for @basics, :method => :put,
+  :url => { :action => "update",
+    :controller   => "leader/group_steps/basics",
+    :group_number => @basics.group.number,
+    :nickname     => current_user.nickname } do |basics|
+  - @basics.errors.full_messages.each do |message|
+    = message
+  = basics.label :name
+  = basics.text_field :name
+  = basics.label :semester_id, "Semester"
+  = basics.collection_select :semester_id, Semester.all, :id, :name,
     :prompt => "Select a Semester"
-  = lifegroup.label :description
-  = lifegroup.text_area :description
-  -# = lifegroup.label :co_leadership_ids, "Co Leaders"
-  -# = lifegroup.collection_select :co_leadership_ids, User.order(:full_name), :id, :name, {}, { :multiple => true }
-  = lifegroup.submit "Save and Continue"
-
+  = basics.label :description
+  = basics.text_area :description
+  = basics.submit "Save and Continue"

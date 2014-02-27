@@ -1,23 +1,24 @@
 class Leader::GroupSteps::BasicsController < ApplicationController
 
   def edit
-    group = current_user.lifegroups.find_by(:number => params[:group_number])
-    @basics = Basics.new(group)
+    @basics = basics_for_current_group
   end
 
   def update
-    group = current_user.lifegroups.find_by(:number => params[:group_number])
-    @basics = Basics.new(group)
+    @basics = basics_for_current_group
     if @basics.update(basics_params)
-      flash[:success] = "#{group.name}'s basic information saved."
-      redirect_to leader_group_steps_edit_specifics_path(
-        :nickname => current_user.nickname,
-        :group_number => group.number
-      )
+      flash[:success] = "#{current_group.name}'s basic information saved."
+      redirect_to group_edit_leadership_path
     else
       flash[:error] = "Oops! Something went wrong."
       render :edit
     end
+  end
+
+  private
+
+  def basics_for_current_group
+    Basics.new(current_group) if current_group
   end
 
   def basics_params
@@ -25,6 +26,14 @@ class Leader::GroupSteps::BasicsController < ApplicationController
       :description,
       :name,
       :semester_id,
+      :privacy
+    )
+  end
+
+  def group_edit_leadership_path
+    leader_group_steps_edit_leadership_path(
+      :nickname => current_user.nickname,
+      :group_number => current_group.number
     )
   end
 end
