@@ -23,6 +23,13 @@ describe Basics do
     expect(basics.errors[:semester_id]).not_to be_nil
   end
 
+  it "needs a privacy status" do
+    group = build(:lifegroup, :privacy => nil)
+    basics = Basics.new(group)
+    expect(basics).to be_invalid
+    expect(basics.errors[:privacy]).not_to be_nil
+  end
+
   it "updates attributes" do
     group = build(:lifegroup, :name => nil)
     basics = Basics.new(group)
@@ -39,7 +46,7 @@ describe Basics do
     semester = create(:semester)
     expect(basics).to be_invalid
     basics.update(:name => "valid", :description => "valid description",
-                  :semester_id => semester.id)
+                  :semester_id => semester.id, :privacy => "closed")
     expect(basics).to be_valid
     expect(group.completed_steps).to include :basics
     expect(group.semester).to eq semester

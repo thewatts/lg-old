@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224234232) do
+ActiveRecord::Schema.define(version: 20140227011055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20140224234232) do
     t.text     "description"
     t.text     "completed_steps"
     t.string   "number"
+    t.boolean  "private"
+    t.string   "privacy",         default: "open"
   end
 
   add_index "lifegroups", ["semester_id"], name: "index_lifegroups_on_semester_id", using: :btree
