@@ -1,0 +1,10 @@
+= form_for :leadership, :method => :put,
+  :url => { :action => "update",
+  :group_name => @leadership.group.number,
+  :nickname  => current_user.nickname } do |leadership|
+  - @leadership.errors.full_messages.each do |message|
+    = message
+  = leadership.label :leader_ids, "Co Leaders"
+  = leadership.collection_select :leader_ids, User.order(:display_name), :id,
+    :display_name, {}, { :multiple => true }
+  = leadership.submit "Save and Continue"

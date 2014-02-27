@@ -36,7 +36,7 @@ describe Lifegroup do
   describe "group steps" do
     it "exist" do
       group = build(:lifegroup)
-      steps = [:basics, :specifics, :location, :submission, :approved]
+      steps = [:basics, :leadership, :specifics, :location, :submission, :approved]
       expect(group.steps).to eq steps
     end
 

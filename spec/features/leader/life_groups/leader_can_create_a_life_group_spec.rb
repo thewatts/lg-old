@@ -37,7 +37,6 @@ feature "lifegroups" do
   end
 
   scenario "creation can be continued with leadership info" do
-    pending
     group = user.lifegroups.create(:name => "My Cool Group")
     visit leader_group_steps_edit_leadership_url(
       :nickname => user.nickname,
@@ -48,21 +47,21 @@ feature "lifegroups" do
     select "Nathan Pruzaniec", :from => "Co Leaders"
     select "J Parker",         :from => "Co Leaders"
     click_on "Save and Continue"
-    click_on "Save and Continue"
     group = Lifegroup.last
 
     expect(group.completed_steps).to include :leadership
     expect(group.leaders).to include user, @npruzaniec, @jparker
 
-    expect(page).to have_content "#{name}'s leadership information saved."
-    expect(page.current_url).to eq leader_group_steps_edit_categorization_url(
-      :nickname => user.nickname,
-      :group_number => group.number
+    expect(page).to have_content "#{group.name}'s leadership information saved."
+    expect(page.current_url).to eq(
+      leader_group_steps_edit_meeting_details_url(
+        :nickname => user.nickname,
+        :group_number => group.number
+      )
     )
   end
 
-  scenario "creation can be continued with specific info"
-  scenario "creation can be continued with contact info"
+  scenario "creation can be continued with meeting details"
   scenario "can be reviewd before submission"
   scenario "can be submitted for approval"
 end

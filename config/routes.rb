@@ -17,7 +17,12 @@ Lg::Application.routes.draw do
     namespace :group_steps, :path => 'groups' do
       get '/:group_number/basics', :to => "basics#edit",   :as => :edit_basics
       put '/:group_number/basics', :to => "basics#update", :as => :basics
-      get '/:group_number/specifics', :to => "specifics#edit", :as => :edit_specifics
+      get '/:group_number/leadership', :to => "leadership#edit",
+        :as => :edit_leadership
+      put '/:group_number/leadership', :to => "leadership#update",
+        :as => :leadership
+      get '/:group_number/meeting-details', :to => "meeting_details#edit",
+        :as => :edit_meeting_details
     end
   end
 

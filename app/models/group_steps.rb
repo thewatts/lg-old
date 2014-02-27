@@ -1,7 +1,7 @@
 module GroupSteps
 
   def self.all
-    [:basics, :specifics, :location, :submission, :approved]
+    [:basics, :leadership, :specifics, :location, :submission, :approved]
   end
 
   def complete!(step)
